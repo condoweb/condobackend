@@ -29,7 +29,15 @@ public class CobrancaService {
 	public Cobranca findById(Long id) {
 		return cobrancaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public List<Cobranca> buscarCobrancaPaga(Long idImovel) {
+		return cobrancaRepository.buscarCobrancaPaga(idImovel);
+	}
 
+	public List<Cobranca> buscarCobrancaNaoPaga(Long idImovel) {		
+		return cobrancaRepository.buscarCobrancaNaoPaga(idImovel);
+	}
+	
 	public Cobranca insert(Cobranca cobranca) {
 		return cobrancaRepository.save(cobranca);
 	}

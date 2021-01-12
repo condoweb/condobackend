@@ -34,6 +34,16 @@ public class CobrancaResource {
 		return ResponseEntity.ok().body(cobrancaService.findById(id));
 	}
 	
+	@GetMapping(value = "/cobranca-paga/{idImovel}")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaPaga(@PathVariable Long idImovel){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaPaga(idImovel));
+	}
+	
+	@GetMapping(value = "/cobranca-nao-paga/{idImovel}")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaNaoPaga(@PathVariable Long idImovel){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaNaoPaga(idImovel));
+	}
+	
 	@PostMapping
 	public ResponseEntity<Cobranca> insert(@RequestBody Cobranca cobranca) {
 		return ResponseEntity

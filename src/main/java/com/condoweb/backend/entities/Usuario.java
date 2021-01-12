@@ -31,17 +31,19 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<Permissao> permissoes = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "morador")
-	private List<Imovel> imoveis = new ArrayList<>();
+	@OneToOne
+	@JoinColumn(name = "imovel_id")
+	private Imovel imovel;
 	
 	public Usuario() {}
 
-	public Usuario(Long id, String nome, String senha, Pessoa pessoa) {
+	public Usuario(Long id, String nome, String senha, Pessoa pessoa, Imovel imovel) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
 		this.pessoa = pessoa;
+		this.imovel = imovel;
 	}
 
 	public Long getId() {
@@ -79,11 +81,15 @@ public class Usuario implements Serializable{
 	public List<Permissao> getPermissoes() {
 		return permissoes;
 	}
-
-	public List<Imovel> getImoveis() {
-		return imoveis;
-	}
 	
+	public Imovel getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -92,34 +92,6 @@ public class TestConfig implements CommandLineRunner {
 		
 		pessoaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8));
 		
-		Usuario u1 = new Usuario(null, "Jade", "1234", p1);
-		Usuario u2 = new Usuario(null, "Cristiane", "1234", p2);
-		Usuario u3 = new Usuario(null, "Nazare", "1234", p3);
-		Usuario u4 = new Usuario(null, "Murilo", "1234", p4);
-		Usuario u5 = new Usuario(null, "Jantonio", "1234", p5);
-		Usuario u6 = new Usuario(null, "Marcos", "1234", p6);
-		Usuario u7 = new Usuario(null, "Juliano", "1234", p7);
-		Usuario u8 = new Usuario(null, "Lucas", "1234", p8);
-		
-		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8));
-		
-		Perfil perf1 = new Perfil(null, "Condomino", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
-		Perfil perf2 = new Perfil(null, "Sindico", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
-		Perfil perf3 = new Perfil(null, "Administrador", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
-		
-		perfilRepository.saveAll(Arrays.asList(perf1, perf2, perf3));
-		
-		Permissao perm1 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), u1, perf1);
-		Permissao perm2 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-10"), u2, perf1);
-		Permissao perm3 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-25"), u3, perf2);
-		Permissao perm4 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-06"), u4, perf1);
-		Permissao perm5 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2019-05-02"), u5, perf1);
-		Permissao perm6 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-02-13"), u6, perf3);
-		Permissao perm7 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-03-20"), u7, perf1);
-		Permissao perm8 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-03-20"), u7, perf2);
-		
-		permissaoRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8));
-		
 		Bloco b1 = new Bloco(null, "A1", "Bloco A1");
 		Bloco b2 = new Bloco(null, "A2", "Bloco A2");
 		Bloco b3 = new Bloco(null, "A3", "Bloco A3");
@@ -133,14 +105,14 @@ public class TestConfig implements CommandLineRunner {
 		
 		condominioRepository.save(condo);
 		
-		Imovel imovel1 = new Imovel(null, 101, "FINANCIADO", b1, condo, u1, p1);
-		Imovel imovel2 = new Imovel(null, 102, "ALUGADO", b1, condo, u2, p2);
-		Imovel imovel3 = new Imovel(null, 103, "FINANCIADO", b1, condo, u3, p3);
-		Imovel imovel4 = new Imovel(null, 104, "ALUGADO", b1, condo, u4, p4);
-		Imovel imovel5 = new Imovel(null, 105, "FINANCIADO", b2, condo, u5, p5);
-		Imovel imovel6 = new Imovel(null, 106, "FINANCIADO", b2, condo, u6, p6);
-		Imovel imovel7 = new Imovel(null, 107, "FINANCIADO", b2, condo, u7, p7);
-		Imovel imovel8 = new Imovel(null, 108, "FINANCIADO", b2, condo, u8, p7);
+		Imovel imovel1 = new Imovel(null, 101, "FINANCIADO", b1, condo, p1);
+		Imovel imovel2 = new Imovel(null, 102, "ALUGADO", b1, condo, p2);
+		Imovel imovel3 = new Imovel(null, 103, "FINANCIADO", b1, condo, p3);
+		Imovel imovel4 = new Imovel(null, 104, "ALUGADO", b1, condo, p4);
+		Imovel imovel5 = new Imovel(null, 105, "FINANCIADO", b2, condo, p5);
+		Imovel imovel6 = new Imovel(null, 106, "FINANCIADO", b2, condo, p6);
+		Imovel imovel7 = new Imovel(null, 107, "FINANCIADO", b2, condo, p7);
+		Imovel imovel8 = new Imovel(null, 108, "FINANCIADO", b2, condo, p7);
 		
 		imovelRepository.saveAll(Arrays.asList(imovel1, imovel2, imovel3, imovel4, imovel5, imovel6, imovel7, imovel8));
 		
@@ -175,5 +147,34 @@ public class TestConfig implements CommandLineRunner {
 		ImovelInformativo imoInfo9 = new ImovelInformativo(imovel4, info1);
 		
 		imovelInformativoRepository.saveAll(Arrays.asList(imoInfo1, imoInfo2, imoInfo3, imoInfo4, imoInfo5, imoInfo6, imoInfo7, imoInfo8, imoInfo9));
+		
+		Usuario u1 = new Usuario(null, "Jade", "1234", p1, imovel1);
+		Usuario u2 = new Usuario(null, "Cristiane", "1234", p2, imovel2);
+		Usuario u3 = new Usuario(null, "Nazare", "1234", p3, imovel3);
+		Usuario u4 = new Usuario(null, "Murilo", "1234", p4, imovel4);
+		Usuario u5 = new Usuario(null, "Jantonio", "1234", p5, imovel5);
+		Usuario u6 = new Usuario(null, "Marcos", "1234", p6, imovel6);
+		Usuario u7 = new Usuario(null, "Juliano", "1234", p7, imovel7);
+		Usuario u8 = new Usuario(null, "Lucas", "1234", p8, imovel8);
+		
+		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8));
+		
+		Perfil perf1 = new Perfil(null, "Condomino", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
+		Perfil perf2 = new Perfil(null, "Sindico", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
+		Perfil perf3 = new Perfil(null, "Administrador", new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-20"));
+		
+		perfilRepository.saveAll(Arrays.asList(perf1, perf2, perf3));
+		
+		Permissao perm1 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), u1, perf1);
+		Permissao perm2 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-10"), u2, perf1);
+		Permissao perm3 = new Permissao(null, false, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-25"), u3, perf2);
+		Permissao perm4 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-06"), u4, perf1);
+		Permissao perm5 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2019-05-02"), u5, perf1);
+		Permissao perm6 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-02-13"), u6, perf3);
+		Permissao perm7 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-03-20"), u7, perf1);
+		Permissao perm8 = new Permissao(null, true, new SimpleDateFormat("yyyy-MM-dd").parse("2020-03-20"), u7, perf2);
+		
+		permissaoRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8));
+		
 	}
 }

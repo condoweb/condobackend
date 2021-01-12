@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,8 +34,7 @@ public class Imovel implements Serializable{
 	private Bloco bloco;
 	
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "morador_id")
+	@OneToOne(mappedBy = "imovel")
 	private Usuario morador;
 	
 	@ManyToOne
@@ -54,12 +54,11 @@ public class Imovel implements Serializable{
 	
 	public Imovel() {}
 
-	public Imovel(Long id, Integer numero, String observacao, Bloco bloco, Condominio condominio, Usuario morador, Pessoa proprietario) {
+	public Imovel(Long id, Integer numero, String observacao, Bloco bloco, Condominio condominio, Pessoa proprietario) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.observacao = observacao;
-		this.morador = morador;
 		this.proprietario = proprietario;
 		this.bloco = bloco;
 		this.condominio = condominio;
@@ -87,14 +86,6 @@ public class Imovel implements Serializable{
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public Usuario getMorador() {
-		return morador;
-	}
-
-	public void setMorador(Usuario morador) {
-		this.morador = morador;
 	}
 
 	public Pessoa getProprietario() {
