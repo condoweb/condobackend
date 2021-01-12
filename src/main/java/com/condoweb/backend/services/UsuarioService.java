@@ -12,7 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.condoweb.backend.dto.UsuarioDto;
+import com.condoweb.backend.dto.UsuarioLoginDto;
 import com.condoweb.backend.entities.Usuario;
 import com.condoweb.backend.repositories.UsuarioRepository;
 import com.condoweb.backend.services.exceptions.DatabaseException;
@@ -33,9 +33,9 @@ public class UsuarioService {
 		return usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
-	public UsuarioDto findByNomeAndSenha(String nome, String senha) {
+	public UsuarioLoginDto findByNomeAndSenha(String nome, String senha) {
 		try {
-			return new UsuarioDto(usuarioRepository.findByNomeAndSenha(nome, senha).get());
+			return new UsuarioLoginDto(usuarioRepository.findByNomeAndSenha(nome, senha).get());
 		} catch (NoSuchElementException e) {
 			throw new NoValuePresentExpection(e.getMessage());
 		}

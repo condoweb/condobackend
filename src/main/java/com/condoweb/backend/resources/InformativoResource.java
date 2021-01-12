@@ -34,6 +34,12 @@ public class InformativoResource {
 		return ResponseEntity.ok().body(informativoService.findById(id));
 	}
 	
+	
+	@GetMapping(value = "/buscar-informativo-usuario/{idUsuario}")
+	public ResponseEntity<List<Informativo>> buscarInformativoUsuario(@PathVariable Long idUsuario){
+		return ResponseEntity.ok().body(informativoService.buscarInformativoUsuario(idUsuario));
+	}
+	
 	@PostMapping
 	public ResponseEntity<Informativo> insert(@RequestBody Informativo informativo) {
 		return ResponseEntity

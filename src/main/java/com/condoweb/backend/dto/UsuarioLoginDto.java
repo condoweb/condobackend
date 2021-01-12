@@ -1,32 +1,39 @@
 package com.condoweb.backend.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.condoweb.backend.entities.Perfil;
+import com.condoweb.backend.entities.Permissao;
 import com.condoweb.backend.entities.Usuario;
 
-public class UsuarioDto implements Serializable {
+public class UsuarioLoginDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String nome;
 	private String nomePessoa;
 	private String email;
+	private List<Perfil> perfis = new ArrayList<>();
 	
-	public UsuarioDto() {}
-
-	public UsuarioDto(Long id, String nome, String nomePessoa, String email) {
+	public UsuarioLoginDto() {}
+	
+	public UsuarioLoginDto(Long id, String nome, String nomePessoa, String email, List<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.nomePessoa = nomePessoa;
 		this.email = email;
+		this.perfis = perfis;
 	}
-	
-	public UsuarioDto(Usuario entity) {
+
+	public UsuarioLoginDto(Usuario entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
 		this.nomePessoa = entity.getPessoa().getNome();
 		this.email = entity.getPessoa().getEmail();
+		for (Permissao p : entity.getPermissoes()) if (p.getStatus() == true) this.perfis.add(p.getPerfil());
 	}
 
 	public Long getId() {
@@ -59,5 +66,13 @@ public class UsuarioDto implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(List<Perfil> perfis) {
+		this.perfis = perfis;
 	}
 }

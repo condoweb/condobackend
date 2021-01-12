@@ -13,16 +13,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.condoweb.backend.dto.ImovelDto;
 import com.condoweb.backend.entities.Imovel;
 import com.condoweb.backend.repositories.ImovelRepository;
+import com.condoweb.backend.repositories.UsuarioRepository;
 import com.condoweb.backend.services.exceptions.DatabaseException;
 import com.condoweb.backend.services.exceptions.ResourceNotFoundException;
+import com.google.common.base.Optional;
 
 @Service
 public class ImovelService {
 	
 	@Autowired
 	private ImovelRepository imovelRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public List<Imovel> findAll() {
 		return imovelRepository.findAll().stream().map(e -> e).collect(Collectors.toList());
@@ -31,10 +37,17 @@ public class ImovelService {
 	public Page<Imovel> findAllPaged(Pageable pageable) {
 		return imovelRepository.findAll(pageable).map(e -> e);
 	}
-	
 
 	public Imovel findById(Long id) {
 		return imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+	}	
+	
+	public ImovelDto buscarImovelUsuario(Long idUsuario) {
+		try {
+			return new ImovelDto(Optional.of(usuarioRepository.getOne(idUsuario).getImovel()).get());
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(idUsuario);
+		}
 	}
 
 	public Imovel insert(Imovel imovel) {

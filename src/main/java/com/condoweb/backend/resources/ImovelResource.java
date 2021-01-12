@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.condoweb.backend.dto.ImovelDto;
 import com.condoweb.backend.entities.Imovel;
 import com.condoweb.backend.services.ImovelService;
 
@@ -47,6 +48,11 @@ public class ImovelResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Imovel> findById(@PathVariable Long id){
 		return ResponseEntity.ok().body(imovelService.findById(id));
+	}
+	
+	@GetMapping(value = "/buscar-imovel-usuario/{idUsuario}")
+	public ResponseEntity<ImovelDto> buscarImovelUsuario(@PathVariable Long idUsuario){
+		return ResponseEntity.ok().body(imovelService.buscarImovelUsuario(idUsuario));
 	}
 	
 	@PostMapping

@@ -13,14 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.condoweb.backend.entities.Informativo;
 import com.condoweb.backend.repositories.InformativoRepository;
+import com.condoweb.backend.repositories.UsuarioRepository;
 import com.condoweb.backend.services.exceptions.DatabaseException;
 import com.condoweb.backend.services.exceptions.ResourceNotFoundException;
+import com.google.common.base.Optional;
 
 @Service
 public class InformativoService {
 	
 	@Autowired
 	private InformativoRepository informativoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public List<Informativo> findAll() {
 		return informativoRepository.findAll().stream().map(e -> e).collect(Collectors.toList());
@@ -32,6 +37,14 @@ public class InformativoService {
 
 	public Informativo insert(Informativo informativo) {
 		return informativoRepository.save(informativo);
+	}
+	
+	public List<Informativo> buscarInformativoUsuario(Long idUsuario) {
+		try {
+			return Optional.of(usuarioRepository.getOne(idUsuario).getImovel().getInformativos().stream().map(e -> e.getInformativo()).collect(Collectors.toList())).get();
+		} catch (EntityNotFoundException e) { 
+			throw new ResourceNotFoundException(idUsuario);
+		}
 	}
 
 	@Transactional

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.condoweb.backend.dto.UsuarioDto;
+import com.condoweb.backend.dto.UsuarioLoginDto;
 import com.condoweb.backend.entities.Usuario;
 import com.condoweb.backend.services.UsuarioService;
 
@@ -38,7 +38,7 @@ public class UsuarioResource {
 	
 	
 	@GetMapping(value = "/login")
-	public ResponseEntity<UsuarioDto> findByNomeAndSenha(
+	public ResponseEntity<UsuarioLoginDto> findByNomeAndSenha(
 			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "senha", defaultValue = "") String senha
 	){
