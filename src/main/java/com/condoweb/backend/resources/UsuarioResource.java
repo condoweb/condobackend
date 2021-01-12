@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.condoweb.backend.dto.UsuarioDto;
 import com.condoweb.backend.entities.Usuario;
 import com.condoweb.backend.services.UsuarioService;
 
@@ -32,6 +34,15 @@ public class UsuarioResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Usuario> findById(@PathVariable Long id){
 		return ResponseEntity.ok().body(usuarioService.findById(id));
+	}
+	
+	
+	@GetMapping(value = "/login")
+	public ResponseEntity<UsuarioDto> findByNomeAndSenha(
+			@RequestParam(value = "nome", defaultValue = "") String nome,
+			@RequestParam(value = "senha", defaultValue = "") String senha
+	){
+		return ResponseEntity.ok().body(usuarioService.findByNomeAndSenha(nome, senha));
 	}
 	
 	@PostMapping

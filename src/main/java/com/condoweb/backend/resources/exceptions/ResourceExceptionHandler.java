@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.condoweb.backend.services.exceptions.DatabaseException;
+import com.condoweb.backend.services.exceptions.NoValuePresentExpection;
 import com.condoweb.backend.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -26,6 +27,14 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(DatabaseException.class)
 	public ResponseEntity<StandardError> dataBase(DatabaseException e, HttpServletRequest request) {
 		String error = "Database error";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(NoValuePresentExpection.class)
+	public ResponseEntity<StandardError> noValuePresent(NoValuePresentExpection e, HttpServletRequest request) {
+		String error = "No value present";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
