@@ -30,12 +30,20 @@ public class CobrancaService {
 		return cobrancaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public List<Cobranca> buscarCobrancaPaga(Long idImovel) {
-		return cobrancaRepository.buscarCobrancaPaga(idImovel);
+	public List<Cobranca> buscarCobrancaPagaImovel(Long idImovel) {
+		return cobrancaRepository.buscarCobrancaPagaImovel(idImovel);
 	}
 
-	public List<Cobranca> buscarCobrancaNaoPaga(Long idImovel) {		
-		return cobrancaRepository.buscarCobrancaNaoPaga(idImovel);
+	public List<Cobranca> buscarCobrancaNaoPagaImovel(Long idImovel) {
+		return cobrancaRepository.buscarCobrancaNaoPagaImovel(idImovel);
+	}
+	
+	public List<Cobranca> buscarCobrancaPaga() {
+		return cobrancaRepository.buscarCobrancaPaga();
+	}
+
+	public List<Cobranca> buscarCobrancaNaoPaga() {		
+		return cobrancaRepository.buscarCobrancaNaoPaga();
 	}
 	
 	public Cobranca insert(Cobranca cobranca) {

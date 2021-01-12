@@ -34,14 +34,24 @@ public class CobrancaResource {
 		return ResponseEntity.ok().body(cobrancaService.findById(id));
 	}
 	
-	@GetMapping(value = "/cobranca-paga/{idImovel}")
-	public ResponseEntity<List<Cobranca>> buscarCobrancaPaga(@PathVariable Long idImovel){
-		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaPaga(idImovel));
+	@GetMapping(value = "/cobranca-paga-imovel/{idImovel}")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaPagaImovel(@PathVariable Long idImovel){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaPagaImovel(idImovel));
 	}
 	
-	@GetMapping(value = "/cobranca-nao-paga/{idImovel}")
-	public ResponseEntity<List<Cobranca>> buscarCobrancaNaoPaga(@PathVariable Long idImovel){
-		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaNaoPaga(idImovel));
+	@GetMapping(value = "/cobranca-nao-paga-imovel/{idImovel}")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaNaoPagaImovel(@PathVariable Long idImovel){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaNaoPagaImovel(idImovel));
+	}
+	
+	@GetMapping(value = "/cobranca-paga")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaPaga(){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaPaga());
+	}
+	
+	@GetMapping(value = "/cobranca-nao-paga")
+	public ResponseEntity<List<Cobranca>> buscarCobrancaNaoPaga(){
+		return ResponseEntity.ok().body(cobrancaService.buscarCobrancaNaoPaga());
 	}
 	
 	@PostMapping
