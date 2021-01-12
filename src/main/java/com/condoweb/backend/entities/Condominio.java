@@ -26,9 +26,6 @@ public class Condominio implements Serializable{
 	@OneToMany(mappedBy = "condominio")
 	private List<Imovel> imoveis = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "condominio")
-	private List<ContaAReceber> contasAReceber = new ArrayList<>();
-	
 	public Condominio() {}
 	
 	public Condominio(Long id, String nome, Integer quantApartamentos, Integer quantBlocos) {
@@ -77,10 +74,6 @@ public class Condominio implements Serializable{
 
 	public void setImoveis(List<Imovel> imoveis) {
 		this.imoveis = imoveis;
-	}
-
-	public List<ContaAReceber> getContasAReceber() {
-		return contasAReceber;
 	}
 	
 	@Override

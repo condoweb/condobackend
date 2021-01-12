@@ -1,12 +1,14 @@
 package com.condoweb.backend.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,26 +21,33 @@ public class Cobranca implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String nome;
 	private String descricao;
-	private Double valor1;
-	private Double valor2;
-	private Double valor3;
-	private Double valor4;
+	private Double valor;
+	private Double valorPago;
+	private Date dataPagamento;
+	private Date dataVencimento;
+	private Date dataReferencia;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "cobranca")
+	@ManyToOne
+	@JoinColumn(name = "imovel_id")
 	private Imovel imovel;
 	
 	public Cobranca() {}
 
-	public Cobranca(Long id, String descricao, Double valor1, Double valor2, Double valor3, Double valor4) {
+	public Cobranca(Long id, String nome, String descricao, Double valor, Double valorPago, Date dataPagamento,
+			Date dataVencimento, Date dataReferencia, Imovel imovel) {
 		super();
 		this.id = id;
+		this.nome = nome;
 		this.descricao = descricao;
-		this.valor1 = valor1;
-		this.valor2 = valor2;
-		this.valor3 = valor3;
-		this.valor4 = valor4;
+		this.valor = valor;
+		this.valorPago = valorPago;
+		this.dataPagamento = dataPagamento;
+		this.dataVencimento = dataVencimento;
+		this.dataReferencia = dataReferencia;
+		this.imovel = imovel;
 	}
 
 	public Long getId() {
@@ -49,6 +58,14 @@ public class Cobranca implements Serializable{
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -57,40 +74,52 @@ public class Cobranca implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Double getValor1() {
-		return valor1;
+	public Double getValor() {
+		return valor;
 	}
 
-	public void setValor1(Double valor1) {
-		this.valor1 = valor1;
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
-	public Double getValor2() {
-		return valor2;
+	public Double getValorPago() {
+		return valorPago;
 	}
 
-	public void setValor2(Double valor2) {
-		this.valor2 = valor2;
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
 	}
 
-	public Double getValor3() {
-		return valor3;
+	public Date getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setValor3(Double valor3) {
-		this.valor3 = valor3;
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
-	public Double getValor4() {
-		return valor4;
+	public Date getDataVencimento() {
+		return dataVencimento;
 	}
 
-	public void setValor4(Double valor4) {
-		this.valor4 = valor4;
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
+	}
+
+	public Date getDataReferencia() {
+		return dataReferencia;
+	}
+
+	public void setDataReferencia(Date dataReferencia) {
+		this.dataReferencia = dataReferencia;
 	}
 
 	public Imovel getImovel() {
 		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
 	}
 
 	@Override

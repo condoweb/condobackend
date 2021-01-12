@@ -2,6 +2,7 @@ package com.condoweb.backend.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,9 +41,8 @@ public class Imovel implements Serializable{
 	@JoinColumn(name = "proprietario_id")
 	private Pessoa proprietario;
 	
-	@OneToOne
-	@JoinColumn(name = "cobranca_id")
-	private Cobranca cobranca;
+	@OneToMany(mappedBy = "imovel")
+	private List<Cobranca> cobrancas;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -55,7 +54,7 @@ public class Imovel implements Serializable{
 	
 	public Imovel() {}
 
-	public Imovel(Long id, Integer numero, String observacao, Bloco bloco, Condominio condominio, Usuario morador, Pessoa proprietario, Cobranca cobranca) {
+	public Imovel(Long id, Integer numero, String observacao, Bloco bloco, Condominio condominio, Usuario morador, Pessoa proprietario) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -63,7 +62,6 @@ public class Imovel implements Serializable{
 		this.morador = morador;
 		this.proprietario = proprietario;
 		this.bloco = bloco;
-		this.cobranca = cobranca;
 		this.condominio = condominio;
 	}
 
@@ -115,12 +113,8 @@ public class Imovel implements Serializable{
 		this.bloco = bloco;
 	}
 
-	public Cobranca getCobranca() {
-		return cobranca;
-	}
-
-	public void setCobranca(Cobranca cobranca) {
-		this.cobranca = cobranca;
+	public List<Cobranca> getCobrancas() {
+		return cobrancas;
 	}
 
 	public Condominio getCondominio() {

@@ -46,11 +46,13 @@ public class CobrancaService {
 	}
 
 	private void updateData(Cobranca entity, Cobranca cobranca) {
+		entity.setNome(cobranca.getNome());
 		entity.setDescricao(cobranca.getDescricao());
-		entity.setValor1(cobranca.getValor1());
-		entity.setValor2(cobranca.getValor2());
-		entity.setValor3(cobranca.getValor3());
-		entity.setValor4(cobranca.getValor4());
+		entity.setValor(cobranca.getValor());
+		entity.setValorPago(cobranca.getValorPago());
+		entity.setDataPagamento(cobranca.getDataPagamento());
+		entity.setDataVencimento(cobranca.getDataVencimento());
+		entity.setDataReferencia(cobranca.getDataReferencia());
 	}
 	
 	@Transactional

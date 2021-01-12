@@ -11,12 +11,10 @@ import org.springframework.context.annotation.Profile;
 import com.condoweb.backend.entities.Bloco;
 import com.condoweb.backend.entities.Cobranca;
 import com.condoweb.backend.entities.Condominio;
-import com.condoweb.backend.entities.ContaAReceber;
 import com.condoweb.backend.entities.Endereco;
 import com.condoweb.backend.entities.Imovel;
 import com.condoweb.backend.entities.ImovelInformativo;
 import com.condoweb.backend.entities.Informativo;
-import com.condoweb.backend.entities.NaturezaOperacao;
 import com.condoweb.backend.entities.Perfil;
 import com.condoweb.backend.entities.Permissao;
 import com.condoweb.backend.entities.Pessoa;
@@ -24,12 +22,10 @@ import com.condoweb.backend.entities.Usuario;
 import com.condoweb.backend.repositories.BlocoRepository;
 import com.condoweb.backend.repositories.CobrancaRepository;
 import com.condoweb.backend.repositories.CondominioRepository;
-import com.condoweb.backend.repositories.ContaAReceberRepository;
 import com.condoweb.backend.repositories.EnderecoRepository;
 import com.condoweb.backend.repositories.ImovelInformativoRepository;
 import com.condoweb.backend.repositories.ImovelRepository;
 import com.condoweb.backend.repositories.InformativoRepository;
-import com.condoweb.backend.repositories.NaturezaOperacaoRepository;
 import com.condoweb.backend.repositories.PerfilRepository;
 import com.condoweb.backend.repositories.PermissaoRepository;
 import com.condoweb.backend.repositories.PessoaRepository;
@@ -65,12 +61,6 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CondominioRepository condominioRepository;
-	
-	@Autowired
-	private ContaAReceberRepository contaAReceberRepository;
-	
-	@Autowired
-	private NaturezaOperacaoRepository naturezaOperacaoRepository;
 	
 	@Autowired
 	private ImovelInformativoRepository imovelInformativoRepository;
@@ -143,43 +133,29 @@ public class TestConfig implements CommandLineRunner {
 		
 		condominioRepository.save(condo);
 		
-
-		NaturezaOperacao naop1 = new NaturezaOperacao(null, "Condomínio", "R");
-		NaturezaOperacao naop2 = new NaturezaOperacao(null, "Fundo Reserva", "R");
-		
-		naturezaOperacaoRepository.saveAll(Arrays.asList(naop1, naop2));
-		
-		ContaAReceber cr1 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-22"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop1);
-		ContaAReceber cr2 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-23"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop2);
-		ContaAReceber cr3 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop1);
-		ContaAReceber cr4 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-21"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop1);
-		ContaAReceber cr5 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-22"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop1);
-		ContaAReceber cr6 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-23"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop2);
-		ContaAReceber cr7 = new ContaAReceber(null, 235.5, 235.5, new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-25"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-10-22"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-01"), condo, naop1);
-		
-		contaAReceberRepository.saveAll(Arrays.asList(cr1, cr2, cr3, cr4, cr5, cr6, cr7));
-		
-		Cobranca cobr1 = new Cobranca(null, "EM ABERTO", 225.00, null, null, null);
-		Cobranca cobr2 = new Cobranca(null, "EM ABERTO", 225.00, null, null, null);
-		Cobranca cobr3 = new Cobranca(null, "EM ABERTO", 25.00, null, null, null);
-		Cobranca cobr4 = new Cobranca(null, "EM ABERTO", 213.00, null, null, null);
-		Cobranca cobr5 = new Cobranca(null, "EM ABERTO", 223.00, null, null, null);
-		Cobranca cobr6 = new Cobranca(null, "EM ABERTO", 212.05, null, null, null);
-		Cobranca cobr7 = new Cobranca(null, "EM ABERTO", 222.00, null, null, null);
-		Cobranca cobr8 = new Cobranca(null, "EM ABERTO", 221.00, null, null, null);
-		
-		cobrancaRepository.saveAll(Arrays.asList(cobr1, cobr2, cobr3, cobr4, cobr5, cobr6, cobr7, cobr8));
-		
-		Imovel imovel1 = new Imovel(null, 101, "FINANCIADO", b1, condo, u1, p1, cobr1);
-		Imovel imovel2 = new Imovel(null, 102, "ALUGADO", b1, condo, u2, p2, cobr2);
-		Imovel imovel3 = new Imovel(null, 103, "FINANCIADO", b1, condo, u3, p3, cobr3);
-		Imovel imovel4 = new Imovel(null, 104, "ALUGADO", b1, condo, u4, p4, cobr4);
-		Imovel imovel5 = new Imovel(null, 105, "FINANCIADO", b2, condo, u5, p5, cobr5);
-		Imovel imovel6 = new Imovel(null, 106, "FINANCIADO", b2, condo, u6, p6, cobr6);
-		Imovel imovel7 = new Imovel(null, 107, "FINANCIADO", b2, condo, u7, p7, cobr7);
-		Imovel imovel8 = new Imovel(null, 108, "FINANCIADO", b2, condo, u8, p7, cobr8);
+		Imovel imovel1 = new Imovel(null, 101, "FINANCIADO", b1, condo, u1, p1);
+		Imovel imovel2 = new Imovel(null, 102, "ALUGADO", b1, condo, u2, p2);
+		Imovel imovel3 = new Imovel(null, 103, "FINANCIADO", b1, condo, u3, p3);
+		Imovel imovel4 = new Imovel(null, 104, "ALUGADO", b1, condo, u4, p4);
+		Imovel imovel5 = new Imovel(null, 105, "FINANCIADO", b2, condo, u5, p5);
+		Imovel imovel6 = new Imovel(null, 106, "FINANCIADO", b2, condo, u6, p6);
+		Imovel imovel7 = new Imovel(null, 107, "FINANCIADO", b2, condo, u7, p7);
+		Imovel imovel8 = new Imovel(null, 108, "FINANCIADO", b2, condo, u8, p7);
 		
 		imovelRepository.saveAll(Arrays.asList(imovel1, imovel2, imovel3, imovel4, imovel5, imovel6, imovel7, imovel8));
+		
+		Cobranca cobr1 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel1);
+		Cobranca cobr2 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel2);
+		Cobranca cobr3 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, null, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), imovel3);
+		Cobranca cobr4 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, null, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), imovel4);
+		Cobranca cobr5 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel5);
+		Cobranca cobr6 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, null, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), imovel6);
+		Cobranca cobr7 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel7);
+		Cobranca cobr8 = new Cobranca(null, "Condominio", "Cobranca referente ao condominio", 200.00, 200.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel8);
+		Cobranca cobr9 = new Cobranca(null, "Salao de festa", "Cobranca referente ao uso do salao de festa", 50.00, 50.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel1);
+		Cobranca cobr10 = new Cobranca(null, "Barulho da Obra", "Cobranca referente ao barulho, causado durante a obra", 100.00, 100.00, new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-20"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-24"), new SimpleDateFormat("yyyy-MM-dd").parse("2020-04-21"), imovel1);
+		
+		cobrancaRepository.saveAll(Arrays.asList(cobr1, cobr2, cobr3, cobr4, cobr5, cobr6, cobr7, cobr8, cobr9, cobr10));
 		
 		Informativo info1 = new Informativo(null, "Eleição do sindico", "Lorem ipsum volutpat ultricies nisi fames torquent in ac, sed nostra feugiat vitae interdum", new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
 		Informativo info2 = new Informativo(null, "Creche", "Lorem ipsum volutpat ultricies nisi fames torquent in ac, sed nostra feugiat vitae interdum", new SimpleDateFormat("yyyy-MM-dd").parse("2020-06-19"));
